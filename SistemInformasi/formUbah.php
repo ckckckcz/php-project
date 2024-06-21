@@ -104,3 +104,4 @@ if (isset($_POST['ubah'])){
     }
 </script>
 
+<?php include 'layout/footer.php'; ?>
