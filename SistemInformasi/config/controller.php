@@ -1,7 +1,7 @@
 <?php 
 
 function create_data($data){
-    global $db
+    global $db;
     $judul = $data['judul'];
     $isi_konten = $data['isi_konten'];
     $tanggal = $data['tanggal'];
@@ -11,33 +11,33 @@ function create_data($data){
         return false;
     }
         
-    $query = "INSERT INTO tbl_konten VALUES(null,'$judul','$isi_konten','$tanggal','$kategori','$gambar)";
+    $query = "INSERT INTO tbl_konten VALUES(null, '$judul', '$isi_konten', '$tanggal', '$kategori', '$gambar')";
     mysqli_query($db, $query);
             
     return mysqli_affected_rows($db);
 }
 
 function upload_gambar_konten(){
-    $namaFile = $_FILES['gambar']['nama'];
+    $namaFile = $_FILES['gambar']['name']; 
     $ukuranFile = $_FILES['gambar']['size'];
     $error = $_FILES['gambar']['error'];
     $tmpName = $_FILES['gambar']['tmp_name'];
 
     $extensiGambarValid = ['jpg', 'jpeg', 'png'];
     $extensiGambar = explode('.', $namaFile);
-    $extensiGambar = strtolower(end($extensiGambarValid)){
-        if (!in_array($extensiGambar, $extensiGambarValid)){
-            echo 
-            "<script>
-                alert('Format Gambar Tidak Valid');
-                document.location.href = 'form-data.php';
-            </script>";
-            die();
-        }
+    $extensiGambar = strtolower(end($extensiGambar));
 
-        move_uploaded_file($tmpName, 'assets/gambar/' . $namaFile);
-        return $namaFile;
+    if (!in_array($extensiGambar, $extensiGambarValid)){
+        echo 
+        "<script>
+            alert('Format Gambar Tidak Valid');
+            document.location.href = 'form-data.php';
+        </script>";
+        die();
     }
+
+    move_uploaded_file($tmpName, 'assets/gambar/' . $namaFile);
+    return $namaFile;
 }
 
 ?>
