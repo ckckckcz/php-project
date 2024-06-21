@@ -2,7 +2,7 @@
 session_start();
 
 require 'controller.php';
-require 'database.php';
+require 'connect.php';
 if(isset($_SESSION['login'])){
     $id_admin = $_SESSION["id_admin"];
     $nama = $_SESSION["nama"];
