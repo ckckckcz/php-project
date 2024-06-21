@@ -36,7 +36,7 @@
         <hr class="sidebar-divider" />
         <div class="sidebar-heading">Daftar Menu</div>
         <li class="nav-item">
-          <a href="form-data.php" class="nav-link">
+          <a href="formData.php" class="nav-link">
             <i class="fas fa-fw fa-pen"></i>
             <span>Form Data</span>
           </a>

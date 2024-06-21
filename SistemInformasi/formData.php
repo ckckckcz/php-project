@@ -19,13 +19,13 @@ if(!isset($_POST['tambah'])){
         echo 
         "<script>
             alert('Data Konten Berhasil Ditambahkan');
-            document.location.href = 'form-data.php';
+            document.location.href = 'formData.php';
         </script>";
     } else {
         echo
         "<script>
             alert('Data Konten Gagal Ditambahkan');
-            document.location.href = 'form-data.php';
+            document.location.href = 'formData.php';
         </script>";
     }
 }
@@ -39,7 +39,7 @@ if(!isset($_POST['tambah'])){
     <div class="row">
         <div class="card col-sm-12 mb-5">
             <div class="card-body">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/formData">
                     <div class="form-group">
                         <label for="judul"><b>Judul</b></label>
                         <input type="text" name="judul" id="judul" class="form-control" required>

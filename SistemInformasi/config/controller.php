@@ -31,7 +31,7 @@ function upload_gambar_konten(){
         echo 
         "<script>
             alert('Format Gambar Tidak Valid');
-            document.location.href = 'form-data.php';
+            document.location.href = 'formData.php';
         </script>";
         die();
     }
