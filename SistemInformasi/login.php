@@ -1,19 +1,21 @@
 <?php 
 include 'config/config.php';
-
 if(isset($_SESSION["login"])){
     header('Location: index.php');
     exit();
 }
 
-if(!isset($_SESSION['login'])){
+if(isset($_POST['login'])){
+    // Ensure the form has been submitted before accessing $_POST['username'] and $_POST['password']
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
     
-    $hasil = mysqli_query($db, "SELECT * FROM tbl_admin WHERE useranme = '$username'");
+    // Correct the SQL query typo
+    $hasil = mysqli_query($db, "SELECT * FROM tbl_admin WHERE username = '$username'");
 
     if(mysqli_num_rows($hasil) === 1){
-        $row = mysqli_fetch_assoc($result);
+        $row = mysqli_fetch_assoc($hasil); // Use $hasil instead of $result
+        // Assume you have a function named verifikasi_password to verify the password
         if(verifikasi_password($password, $row["password"])){
             $_SESSION["login"] = true;
             $_SESSION["id_admin"] = $row["id_admin"];
@@ -21,13 +23,12 @@ if(!isset($_SESSION['login'])){
             $_SESSION["username"] = $row["username"];
             $_SESSION["level"] = $row["level"];
 
-            header("Location index.php");
+            header("Location: index.php"); // Added colon after Location
             exit;
         }
     }
     $error = true;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -77,10 +78,7 @@ if(!isset($_SESSION['login'])){
                     </form>
                     <hr />
                     <div class="text-center">
-                      <a class="small text-dark" href="#"
-                        >Copyright &copy; Riovaldo Alfiyan Fahmi Rahman 2024 -
-                        <?= date('Y'); ?></a
-                      >
+                      <a class="small text-dark" href="#">Copyright &copy; Riovaldo Alfiyan Fahmi Rahman 2024 - <?= date('Y'); ?></a>
                     </div>
                   </div>
                 </div>
