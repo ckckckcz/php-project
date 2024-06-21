@@ -15,13 +15,13 @@
         echo 
         "<script>
             alert('Konten berhasil dihapus');
-            document.location.href = 'index.php';
+            document.location.href = 'register.php';
         </script>";
     } else {
         echo 
         "<script>
             alert('Konten gagal dihapus');
-            document.location.href = 'index.php';
+            document.location.href = 'register.php';
         </script>";
     }
 ?>
