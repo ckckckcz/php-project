@@ -1,7 +1,7 @@
 <?php 
 
 function create_data($data){
-    global $db
+    global $db;
     $judul = $data['judul'];
     $isi_konten = $data['isi_konten'];
     $tanggal = $data['tanggal'];
