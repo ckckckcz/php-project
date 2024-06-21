@@ -1,61 +1,65 @@
-<?php 
-include 'layout/header.php';
+<?php
 
 session_start();
 
-if(!isset($_SESSION["login"])){
+if (!isset($_SESSION["login"])) {
     echo "<script>
-        alert('Kamu harus login terlebih dahulu !');
-        document.location.href = 'login.php';
-    </script>";
+            alert('Anda harus login terlebih dahulu');
+            document.location.href = 'login.php';
+          </script>";
     exit;
 }
 
 $title = "Daftar Akun";
+
+include 'layout/header.php';
+
 $data_akun = query("SELECT * FROM tbl_admin");
 
-if (isset($_POST['tambah'])){
-    if (create_akun($_POST) > 0){
+if (isset($_POST['tambah'])) {
+    if (create_akun($_POST) > 0) {
         echo "<script>
-            alert('Daftar Akun Berhasil !');
-            document.location.href = 'register.php';
-        </script>";
+                alert('Data Akun Berhasil Ditambahkan');
+                document.location.href = 'daftar-akun.php';
+              </script>";
     } else {
         echo "<script>
-            alert('Daftar Akun Gagal !');
-            document.location.href = 'register.php';
-        </script>";
+                alert('Data Akun Gagal Ditambahkan');
+                document.location.href = 'daftar-akun.php';
+              </script>";
     }
 }
 
-if (isset($_POST['ubah'])){
-    if (update_akun($_POST) > 0){
+if (isset($_POST['ubah'])) {
+    if (update_akun($_POST) > 0) {
         echo "<script>
-            alert('Akun Berhasil Diperbarui');
-            document.location.href = 'register.php';
-        </script>";
+                alert('Data Akun Berhasil Diubah');
+                document.location.href = 'daftar-akun.php';
+              </script>";
     } else {
         echo "<script>
-            alert('Akun Gagal Diperbarui');
-            document.location.href = 'register.php';
-        </script>";
+                alert('Data Akun Gagal Diubah');
+                document.location.href = 'daftar-akun.php';
+              </script>";
     }
 }
+
 ?>
 
+<!-- Isi -->
 <div class="container-fluid">
+    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><?= $title ?></h1>
+        <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
     </div>
 
+    <!-- Content Row -->
     <div class="row">
         <div class="card col-sm-12 mb-5">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <button class="btn btn-success btn-sm mb-2" data-toggle="modal" data-target="#modalTambah">
-                            <i class="fas fa-plus"></i>Tambah Akun
-                        </button>
+                        <button class="btn btn-success btn-sm mb-2" data-toggle="modal" data-target="#modalTambah"><i class="fas fa-plus"></i> Tambah Akun</button>
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -67,7 +71,7 @@ if (isset($_POST['ubah'])){
                         </thead>
 
                         <tbody>
-                            <?php $no = 1 ?>
+                            <?php $no = 1; ?>
                             <?php foreach ($data_akun as $data) : ?>
                                 <tr>
                                     <td><?= $no++; ?></td>
@@ -90,7 +94,9 @@ if (isset($_POST['ubah'])){
         </div>
     </div>
 </div>
+<!-- Isi -->
 
+<!-- Modal Tambah -->
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -136,6 +142,7 @@ if (isset($_POST['ubah'])){
     </div>
 </div>
 
+<!-- Modal Ubah -->
 <?php foreach ($data_akun as $data) : ?>
     <div class="modal fade" id="modalUbah<?= $data['id_admin']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -184,6 +191,7 @@ if (isset($_POST['ubah'])){
     </div>
 <?php endforeach; ?>
 
+<!-- Modal Hapus -->
 <?php foreach ($data_akun as $data) : ?>
     <div class="modal fade" id="modalHapus<?= $data['id_admin']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

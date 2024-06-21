@@ -1,45 +1,48 @@
-<?php 
+<?php
 
 session_start();
-if (!isset($_SESSION["login"])){
-    echo 
-    "<script>
-        alert('Login terlebih dahulu');
-        document.location.href = 'login.php';
-    </script>";
 
+if (!isset($_SESSION["login"])) {
+    echo "<script>
+            alert('Anda harus login terlebih dahulu');
+            document.location.href = 'login.php';
+          </script>";
     exit;
 }
 
-$title = 'Halaman Formulir Pendataan';
-inlcude 'layout/header.php';
+$title = 'Halaman Form Data'; // judul halaman
 
-if(!isset($_POST['tambah'])){
-    if(create_data($_POST) > 0){
-        echo 
-        "<script>
-            alert('Data Konten Berhasil Ditambahkan');
-            document.location.href = 'formData.php';
-        </script>";
+include 'layout/header.php'; // memanggil file header.php di dlm folder layout
+
+// jika tombol tambah di tekan, jalankan perintah dibawah ini
+if (isset($_POST['tambah'])) {
+    if (create_data($_POST) > 0) {
+        echo "<script>
+                alert('Data Konten Berhasil Ditambahkan');
+                document.location.href = 'form-data.php';
+              </script>";
     } else {
-        echo
-        "<script>
-            alert('Data Konten Gagal Ditambahkan');
-            document.location.href = 'formData.php';
-        </script>";
+        echo "<script>
+                alert('Data Konten Gagal Ditambahkan');
+                document.location.href = 'form-data.php';
+              </script>";
     }
 }
+
 ?>
 
+<!-- Isi halaman form-data -->
 <div class="container-fluid">
+    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
     </div>
 
+    <!-- Content Row -->
     <div class="row">
         <div class="card col-sm-12 mb-5">
             <div class="card-body">
-                <form action="" method="POST" enctype="multipart/formData">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="judul"><b>Judul</b></label>
                         <input type="text" name="judul" id="judul" class="form-control" required>
@@ -84,18 +87,20 @@ if(!isset($_POST['tambah'])){
         </div>
     </div>
 </div>
+<!-- Isi halaman form-data -->
 
 <script type="text/javascript">
-    function previewImg(){
-        const gamber = document.querySelector("#gamber");
-        const gambarLabel = document.querySelector(".custom-file-label");
-        const imgPreview = document.querySelector(".imgPreview");
+    function previewImg() {
+        const gambar = document.querySelector('#gambar');
+        const gambarLabel = document.querySelector('.custom-file-label');
+        const imgPreview = document.querySelector('.img-preview');
 
         gambarLabel.textContent = gambar.files[0].name;
-        const fileGambar = new FileReader();
-        fileGambar.readAsDataURL9gambar.fils[0];
 
-        fileGambar.onload = function(e){
+        const fileGambar = new FileReader();
+        fileGambar.readAsDataURL(gambar.files[0]);
+
+        fileGambar.onload = function(e) {
             imgPreview.src = e.target.result;
         }
     }
