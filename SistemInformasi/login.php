@@ -6,16 +6,12 @@ if(isset($_SESSION["login"])){
 }
 
 if(isset($_POST['login'])){
-    // Ensure the form has been submitted before accessing $_POST['username'] and $_POST['password']
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
-    
-    // Correct the SQL query typo
     $hasil = mysqli_query($db, "SELECT * FROM tbl_admin WHERE username = '$username'");
 
     if(mysqli_num_rows($hasil) === 1){
-        $row = mysqli_fetch_assoc($hasil); // Use $hasil instead of $result
-        // Assume you have a function named verifikasi_password to verify the password
+        $row = mysqli_fetch_assoc($hasil);
         if(verifikasi_password($password, $row["password"])){
             $_SESSION["login"] = true;
             $_SESSION["id_admin"] = $row["id_admin"];
@@ -23,7 +19,7 @@ if(isset($_POST['login'])){
             $_SESSION["username"] = $row["username"];
             $_SESSION["level"] = $row["level"];
 
-            header("Location: index.php"); // Added colon after Location
+            header("Location: index.php");
             exit;
         }
     }
